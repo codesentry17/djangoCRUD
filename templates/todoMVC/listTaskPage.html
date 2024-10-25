@@ -24,17 +24,17 @@
         <div class="col-sm-6">
             <form action="{% url 'delete_all_view' %}" method="POST" style="display:inline;">
                 {% csrf_token %}
-                <button type="submit" class="btn btn-danger" style="background:orange; border:none; cursor:pointer;" onclick="return confirm('Are you sure you want to delete all Tasks? This action cannot be undone.');">
-                    <i class="material-icons">&#xE872;</i>Delete Selected Tasks
+                <button type="submit" class="btn btn-danger" style="background:red; border:none; cursor:pointer;" onclick="return confirm('Are you sure you want to delete all Tasks? This action cannot be undone.');">
+                    <i class="material-icons">&#xE872;</i>Delete All Tasks
                 </button>
             </form>
-            <a href="{% url 'todo_create_view' %}" class="btn btn-success">
-                <i class="material-icons">&#xE147;</i> <span>Add New Task</span>
-            </a>
-            <button type="button" class="btn btn-danger" id="delete-selected">
+            <button type="button" class="btn btn-danger" id="delete-selected" style="background: orange;" onclick="return confirm('Are you sure you want to delete selected Tasks? This action cannot be undone.');">
                 <i class="material-icons">&#xE15C;</i>
                 <span>Delete Selected Tasks</span>
             </button>
+            <a href="{% url 'todo_create_view' %}" class="btn btn-success">
+                <i class="material-icons">&#xE147;</i> <span>Add New Task</span>
+            </a>
         </div>
     </div>
 </div>
