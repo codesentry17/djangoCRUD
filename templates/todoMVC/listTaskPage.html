@@ -22,13 +22,19 @@
             <h2>Your <b>Tasks</b></h2>
         </div>
         <div class="col-sm-6">
-            <a href="{% url 'delete_all_view' %}" class="btn btn-danger">
-                <i class="material-icons">&#xE15C;</i> <span>Delete All Tasks</span>
-            </a>
-            <button type="button" id="delete-selected">Delete Selected Rows</button>
+            <form action="{% url 'delete_all_view' %}" method="POST" style="display:inline;">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger" style="background:orange; border:none; cursor:pointer;" onclick="return confirm('Are you sure you want to delete all Tasks? This action cannot be undone.');">
+                    <i class="material-icons">&#xE872;</i>Delete Selected Tasks
+                </button>
+            </form>
             <a href="{% url 'todo_create_view' %}" class="btn btn-success">
                 <i class="material-icons">&#xE147;</i> <span>Add New Task</span>
             </a>
+            <button type="button" class="btn btn-danger" id="delete-selected">
+                <i class="material-icons">&#xE15C;</i>
+                <span>Delete Selected Tasks</span>
+            </button>
         </div>
     </div>
 </div>
