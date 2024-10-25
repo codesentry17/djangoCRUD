@@ -15,6 +15,11 @@ class TodoListView(ListView):
     template_name = 'todoMVC/listTaskPage.html'
     context_object_name = 'todos'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["tasks_count"] = Todos.objects.all().count()
+        return context
+
 
 
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
