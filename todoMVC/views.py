@@ -1,4 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.http import HttpResponse
+
 from django.views.generic import ListView
 from django.urls import reverse_lazy
 from .models import Todos
@@ -51,7 +53,21 @@ class TodoDeleteView(DeleteView):
 
 def TodoDeleteAllView(request):
     if request.method == "POST":
+        print("delete called")
         Todos.objects.all().delete()
         messages.success(request, "All Tasks have been deleted")
+        return redirect('todo_list_view')
+    
 
+
+def TodoDeleteSelectedView(request):
+    if request.method == "POST":
+        selected_task_ids = request.POST.getlist('selected_rows')
+        # print(selected_task_ids)
+        Todos.objects.filter(id__in=selected_task_ids).delete()
+        messages.success(request, "All selected tasks have been deleted")
+        return redirect('todo_list_view')
+    
+    else:
+        return HttpResponse(status=404)
 
