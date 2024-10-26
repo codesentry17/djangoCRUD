@@ -31,6 +31,14 @@ class TodoCreateView(CreateView):
 
     success_url = reverse_lazy('todo_list_view')
 
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        
+        # Add a success message after creating the Todo
+        messages.success(self.request, f"Task {self.object.title} created successfully.")
+        
+        # Return the response
+        return response
 
 
 
@@ -41,7 +49,9 @@ class TodoUpdateView(UpdateView):
     success_url = reverse_lazy('todo_list_view')
 
     def form_valid(self, form):
-        messages.success(self.request, "Task Updated Successfully")
+        task = self.get_object()
+
+        messages.success(self.request, f"Task: {task.title} Updated Successfully")
         return super().form_valid(form)
 
 
@@ -49,10 +59,9 @@ class TodoUpdateView(UpdateView):
 class TodoDeleteView(DeleteView):
     model = Todos
     success_url = reverse_lazy('todo_list_view')
-
     def delete(self, request, *args, **kwargs):
-        messages.success(self.request, "Task Deleted Successfully")
-        return super().delete(request, *args, **kwargs)
+        messages.success(self.request, "Task Deleted")
+        return super(TodoDeleteView, self).delete(request, *args, **kwargs)
 
 
 

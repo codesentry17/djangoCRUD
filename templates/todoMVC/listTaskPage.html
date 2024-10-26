@@ -90,40 +90,40 @@
 
 {% block scripts %}
 <script>
-document.getElementById("delete-selected").addEventListener("click", function() {
-    // Get all checked checkboxes
-    const selectedIds = Array.from(document.querySelectorAll("input[name='selected_rows']:checked")).map(cb => cb.value);
-    
-    if (selectedIds.length > 0) {
-        // Create a form dynamically
-        const form = document.createElement("form");
-        form.method = "post";
-        form.action = "{% url 'delete_selected_view' %}";
-        
-        // Add CSRF token for security
-        const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
-        const csrfInput = document.createElement("input");
-        csrfInput.type = "hidden";
-        csrfInput.name = "csrfmiddlewaretoken";
-        csrfInput.value = csrfToken;
-        form.appendChild(csrfInput);
+    document.getElementById("delete-selected").addEventListener("click", function () {
+        // Get all checked checkboxes
+        const selectedIds = Array.from(document.querySelectorAll("input[name='selected_rows']:checked")).map(cb => cb.value);
 
-        // Append each selected ID as a hidden input
-        selectedIds.forEach(id => {
-            const input = document.createElement("input");
-            input.type = "hidden";
-            input.name = "selected_rows";
-            input.value = id;
-            form.appendChild(input);
-        });
+        if (selectedIds.length > 0) {
+            // Create a form dynamically
+            const form = document.createElement("form");
+            form.method = "post";
+            form.action = "{% url 'delete_selected_view' %}";
 
-        // Append and submit the form
-        document.body.appendChild(form);
-        form.submit();
-    } else {
-        alert("No rows selected!");
-    }
-});
+            // Add CSRF token for security
+            const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+            const csrfInput = document.createElement("input");
+            csrfInput.type = "hidden";
+            csrfInput.name = "csrfmiddlewaretoken";
+            csrfInput.value = csrfToken;
+            form.appendChild(csrfInput);
+
+            // Append each selected ID as a hidden input
+            selectedIds.forEach(id => {
+                const input = document.createElement("input");
+                input.type = "hidden";
+                input.name = "selected_rows";
+                input.value = id;
+                form.appendChild(input);
+            });
+
+            // Append and submit the form
+            document.body.appendChild(form);
+            form.submit();
+        } else {
+            alert("No rows selected!");
+        }
+    });
 
 </script>
 {% endblock %}
