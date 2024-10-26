@@ -91,9 +91,7 @@ DATABASES = {
     }
 }
 
-heroku_db = dj_database_url.config(conn_max_age=600)
-DATABASES['default'].update(heroku_db)
-
+DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
 
 
 # Password validation
